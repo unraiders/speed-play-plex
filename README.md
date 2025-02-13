@@ -19,7 +19,7 @@ Requerimientos para utilizar este contenedor:
 | CLIENTE_TORRENT_PORT    |     ✅    | PUERTO del cliente de Torrent, ejemplo: 8090                              |
 | CLIENTE_TORRENT_USER    |     ✅    | Usuario en nuestro cliente de Torrent.                                    |
 | CLIENTE_TORRENT_PASSWORD|     ✅    | Password en nuestro cliente de Torrent.                                   |
-| DEBUG                   |     ✅    | Habilita el modo Debug en el log. (0 = No / 1 = Si)                       |
+| DEBUG_MODE                   |     ✅    | Habilita el modo Debug en el log. (0 = No / 1 = Si)                       |
 
 
 
