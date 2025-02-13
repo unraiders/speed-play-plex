@@ -1,0 +1,10 @@
+services:
+  speed-play-plex:
+    image: unraiders/speed-play-plex:latest
+    container_name: speed-play-plex
+    env_file:
+      - .env
+    ports:
+      - 9898:9898
+    network_mode: bridge
+    restart: unless-stopped

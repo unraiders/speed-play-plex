@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>speed-play-plex</Name>
+  <Repository>unraiders/speed-play-plex</Repository>
+  <Registry>https://hub.docker.com/r/unraiders/speed-play-plex/</Registry>
+  <Network>bridge</Network>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/unraiders/speed-play-plex</Support>
+  <Project>https://github.com/unraiders/speed-play-plex</Project>
+  <Overview>Control de velocidad de clientes torrent basado en la actividad de Plex (API Tautulli)</Overview>
+  <Category>Downloaders: Tools:</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/unraiders/speed-play-plex/master/my-speed-play-plex.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/unraiders/speed-play-plex/master/speed-play-plex-icon.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>1702220612</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Description>Control de la velocidad de clientes torrent (qBittorrent/Transmission) basándose en la actividad de reproducción de Plex a través de Tautulli (API).</Description>
+  <Config Name="WebHook Port" Target="9898" Default="9898" Mode="tcp" Description="Puerto en el contenedor para el webhook de Tautulli" Type="Port" Display="always" Required="true" Mask="false"/>
+  <Config Name="Tautulli API Key" Target="TAUTULLI_API_KEY" Default="" Mode="" Description="API Key de Tautulli" Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="Tautulli IP" Target="TAUTULLI_IP" Default="" Mode="" Description="IP de Tautulli" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="Tautulli Port" Target="TAUTULLI_PORT" Default="" Mode="" Description="Puerto de Tautulli" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="Cliente Torrent IP" Target="CLIENTE_TORRENT_IP" Default="" Mode="" Description="IP del cliente torrent" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="Cliente Torrent Port" Target="CLIENTE_TORRENT_PORT" Default="" Mode="" Description="Puerto del cliente torrent" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="Cliente Torrent Usuario" Target="CLIENTE_TORRENT_USER" Default="" Mode="" Description="Usuario del cliente torrent" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="Cliente Torrent Password" Target="CLIENTE_TORRENT_PASSWORD" Default="" Mode="" Description="Contraseña del cliente torrent" Type="Variable" Display="always" Required="true" Mask="true"/>
+  <Config Name="Cliente Torrent" Target="CLIENTE_TORRENT" Default="qbittorrent|transmission" Mode="" Description="Cliente torrent (qbittorrent o transmission)" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="Modo Debug" Target="DEBUG" Default="0" Mode="" Description="Seleccionar 1 para debug, 0 para información básica" Type="Variable" Display="advanced" Required="true" Mask="false"/>
+</Container>
