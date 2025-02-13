@@ -11,4 +11,4 @@ CLIENTE_TORRENT_PASSWORD=
 CLIENTE_TORRENT=
 
 # 0 para salida básica, 1 para debug
-DEBUG=0
+DEBUG_MODE=0

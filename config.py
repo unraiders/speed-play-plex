@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 # Cargar variables de entorno
 load_dotenv()
 
-DEBUG = os.getenv("DEBUG", "0") == "1"
+DEBUG = os.getenv("DEBUG_MODE", "0") == "1"
 
 TAUTULLI_API_KEY = os.getenv('TAUTULLI_API_KEY')
 TAUTULLI_IP = os.getenv('TAUTULLI_IP')

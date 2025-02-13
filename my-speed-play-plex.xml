@@ -29,5 +29,5 @@
   <Config Name="Cliente Torrent Usuario" Target="CLIENTE_TORRENT_USER" Default="" Mode="" Description="Usuario del cliente torrent" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="Cliente Torrent Password" Target="CLIENTE_TORRENT_PASSWORD" Default="" Mode="" Description="Contraseña del cliente torrent" Type="Variable" Display="always" Required="true" Mask="true"/>
   <Config Name="Cliente Torrent" Target="CLIENTE_TORRENT" Default="qbittorrent|transmission" Mode="" Description="Cliente torrent (qbittorrent o transmission)" Type="Variable" Display="always" Required="true" Mask="false"/>
-  <Config Name="Modo Debug" Target="DEBUG" Default="0" Mode="" Description="Seleccionar 1 para debug, 0 para información básica" Type="Variable" Display="advanced" Required="true" Mask="false"/>
+  <Config Name="Modo Debug" Target="DEBUG_MODE" Default="0" Mode="" Description="Seleccionar 1 para debug, 0 para información básica" Type="Variable" Display="advanced" Required="true" Mask="false"/>
 </Container>
