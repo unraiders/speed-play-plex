@@ -5,3 +5,4 @@ requests==2.31.0
 colorama==0.4.6
 transmission-rpc==7.0.3
 gunicorn==20.1.0
+tzdata == 2025.1

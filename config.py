@@ -18,5 +18,7 @@ CLIENTE_TORRENT_PASSWORD = os.getenv('CLIENTE_TORRENT_PASSWORD')
 # Opciones: qbittorrent o transmission
 CLIENTE_TORRENT = os.getenv('CLIENTE_TORRENT', '').lower()
 
+TZ = os.getenv("TZ", "Europe/Madrid")
+
 
 

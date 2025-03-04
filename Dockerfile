@@ -1,7 +1,7 @@
 FROM python:3.11-alpine
 
 LABEL maintainer="unraiders"
-LABEL version="1.0.0"
+LABEL version="1.1.0"
 LABEL description="Control de velocidad clientes torrent basado en la actividad de Plex (API Tautulli)."
 
 RUN adduser -D speedplay

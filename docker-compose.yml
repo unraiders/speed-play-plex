@@ -1,6 +1,6 @@
 services:
   speed-play-plex:
-    image: unraiders/speed-play-plex:latest
+    image: unraiders/speed-play-plex
     container_name: speed-play-plex
     env_file:
       - .env

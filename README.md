@@ -20,7 +20,7 @@ Requerimientos para utilizar este contenedor:
 | CLIENTE_TORRENT_USER    |     ✅    | Usuario en nuestro cliente de Torrent.                                    |
 | CLIENTE_TORRENT_PASSWORD|     ✅    | Password en nuestro cliente de Torrent.                                   |
 | DEBUG_MODE              |     ✅    | Habilita el modo Debug en el log. (0 = No / 1 = Si)                       |
-
+| TZ                      |     ✅    | Timezone (Por ejemplo: Europe/Madrid)                                     |
 
 
   > [!IMPORTANT]

@@ -1,6 +1,3 @@
-# Propio
-**/*LOCAL.*
-instruction.md
 **/.DS_Store
 gunicorn.conf.py
 
