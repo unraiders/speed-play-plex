@@ -1,6 +1,8 @@
 import logging
+
 from colorama import Fore, Style, init
-from config import *
+
+from config import DEBUG
 
 # Inicializar colorama
 # Asegura que los códigos ANSI no se eliminen en macOS.
@@ -39,7 +41,7 @@ def setup_logger(name: str):
         'urllib3.connectionpool',
         'qbittorrentapi.decorators'
     ]
-    
+
     for lib in third_party_loggers:
         lib_logger = logging.getLogger(lib)
         lib_logger.setLevel(logging.WARNING)

@@ -1,24 +1,30 @@
-FROM python:3.11-alpine
+FROM python:3.12-alpine
 
 LABEL maintainer="unraiders"
-LABEL version="1.1.0"
-LABEL description="Control de velocidad clientes torrent basado en la actividad de Plex (API Tautulli)."
+LABEL description="Control de velocidad clientes torrents qBittorrent, Transmission, Synology Download Station basado en la actividad de Plex (API Tautulli)."
+
+ARG VERSION=1.2.0
+ENV VERSION=${VERSION}
 
 RUN adduser -D speedplay
 
 WORKDIR /app
 
 COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+RUN chown -R speedplay:speedplay /app
+
 COPY utils.py .
 COPY config.py .
 COPY torrent_controller.py .
 COPY speed-play-plex.py .
 
-RUN pip install --no-cache-dir -r requirements.txt && \
-    chown -R speedplay:speedplay /app
-
 EXPOSE 9898
+
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
 USER speedplay
 
-CMD ["gunicorn", "--bind", "0.0.0.0:9898", "--workers", "2", "speed-play-plex:app"]
+ENTRYPOINT ["/app/entrypoint.sh"]
