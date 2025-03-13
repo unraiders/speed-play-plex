@@ -64,7 +64,7 @@ services:
         - DEBUG=0
         - TZ=Europe/Madrid
     ports:
-      - "9898:9898"       
+        - "9898:9898"       
 ```
 
 ---
