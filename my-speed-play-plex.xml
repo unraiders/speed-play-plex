@@ -31,6 +31,7 @@
   <Config Name="CLIENTE_TORRENT_PASSWORD" Target="CLIENTE_TORRENT_PASSWORD" Default="" Mode="" Description="Contraseña del cliente Torrent." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="VEL_ALTERNATIVA_DESCARGA" Target="VEL_ALTERNATIVA_DESCARGA" Default="" Mode="" Description="Velocidad de descarga solo para la opción de cliente rTorrent en MB/s." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="VEL_ALTERNATIVA_SUBIDA" Target="VEL_ALTERNATIVA_SUBIDA" Default="" Mode="" Description="Velocidad de subida solo para la opción de cliente rTorrent en MB/s." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="ENDPOINT_RTORRENT" Target="ENDPOINT_RTORRENT" Default="" Mode="" Description="Solo para rTorrent, parte del ENDPOINT. visita https://github.com/unraiders/speed-play-plex/releases/tag/v1.4.0 para más info." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="DEBUG" Target="DEBUG" Default="0" Mode="" Description="Habilita el modo Debug en el log. (0 = No / 1 = Si)" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="TZ" Target="TZ" Default="Europe/Madrid" Mode="" Description="Timezone (Por ejemplo: Europe/Madrid)" Type="Variable" Display="always" Required="true" Mask="false"/>
 </Container>

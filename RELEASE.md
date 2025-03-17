@@ -1,9 +1,7 @@
 # Cambios en esta versión
 
-## Novedades
-- ✨ Añadido soporte para cliente de torrents rTorrent.
-
 ## Cambios
-- 🏷️ Añadidas nuevas variables de entorno VEL_ALTERNATIVA_DESCARGA, VEL_ALTERNATIVA_SUBIDA ya que rTorrent no tiene modo de velocidad alternativa en su configuración.
+- 🏷️ Añadida nueva variable de entorno ENDPOINT_RTORRENT dado que dependiendo de la versión de rTorrent y de los plugins instalados puede cambiar el ENDPOINT de la URL. Los ENDPOINT mas usuales son: /RPC2 o /plugins/rpc/rpc.php o /plugins/httprpc/action.php
+
 
 

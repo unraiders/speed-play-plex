@@ -14,6 +14,7 @@ from config import (
     CLIENTE_TORRENT_USER,
     VEL_ALTERNATIVA_DESCARGA,
     VEL_ALTERNATIVA_SUBIDA,
+    ENDPOINT_RTORRENT,
     )
 from utils import setup_logger
 
@@ -27,6 +28,7 @@ class TorrentController:
         self.username = CLIENTE_TORRENT_USER
         self.password = CLIENTE_TORRENT_PASSWORD
         self.vel_alt_subida = VEL_ALTERNATIVA_SUBIDA
+        self.endpoint_rtorrent = ENDPOINT_RTORRENT
         self.client = None
         self.current_up = None
         self.current_down = None
@@ -120,7 +122,7 @@ class TorrentController:
                         auth_part += f":{encoded_password}"
                     auth_part += "@"
 
-                url = f"http://{auth_part}{CLIENTE_TORRENT_IP}:{CLIENTE_TORRENT_PORT}/RPC2"
+                url = f"http://{auth_part}{CLIENTE_TORRENT_IP}:{CLIENTE_TORRENT_PORT}{ENDPOINT_RTORRENT}"
 
                 client = xmlrpc.client.ServerProxy(url)
                 version = client.system.client_version()

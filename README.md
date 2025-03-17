@@ -23,6 +23,7 @@ Requerimientos para utilizar este contenedor:
 | CLIENTE_TORRENT_PASSWORD |     ✅    | v1.0.0  | Contraseña del cliente Torrent.                                                     |
 | VEL_ALTERNATIVA_DESCARGA |     ✅    | v1.3.0  | Velocidad de descarga solo para la opción de cliente rTorrent (en MB/s.)            |
 | VEL_ALTERNATIVA_SUBIDA   |     ✅    | v1.3.0  | Velocidad de subida solo para la opción de cliente rTorrent (en MB/s.)              |
+| ENDPOINT_RTORRENT        |     ✅    | v1.4.0  | Solo para rTorrent, parte del ENDPOINT. visita https://github.com/unraiders/speed-play-plex/releases/tag/v1.4.0 para más info. |
 | DEBUG                    |     ✅    | v1.2.0  | Habilita el modo Debug en el log. (0 = No / 1 = Si)                                 |
 | TZ                       |     ✅    | v1.1.0  | Timezone (Por ejemplo: Europe/Madrid)                                               |
 
@@ -65,6 +66,7 @@ services:
         - CLIENTE_TORRENT_PASSWORD=
         - VEL_ALTERNATIVA_DESCARGA=
         - VEL_ALTERNATIVA_SUBIDA=
+        - ENDPOINT_RTORRENT=
         - DEBUG=0
         - TZ=Europe/Madrid
     ports:
@@ -149,6 +151,7 @@ services:
 -  Imagen oficial [rakshasa/rtorrent](https://github.com/rakshasa/rtorrent) el puerto interno que expone XMLRPC es el 5000.
 -  Otra imagen [crazy-max/docker-rtorrent-rutorrent](https://github.com/crazy-max/docker-rtorrent-rutorrent) el puerto que expone XMLRPC es el 8000. (con esa imagen la autenticación está deshabilitada por defecto, podemos dejar las variables de usuario y contraseña vacías, en el caso de querer activar la autenticación en el repositorio está en procedimiento).
 - Imagen de hotio que integra flood con rTorrent [ghcr.io/hotio/rflood](https://hotio.dev/containers/rflood) el puerto que expone XMLRPC es el 5000. (si ya tenemos corriendo esta imagen con anterioridad, leer la página de hotio que indica como sacar el usuario y contraseña para la conexión).
+- A partir de la versión v1.4.0 del contenedor se separa de la URL el ENDPOINT y se pasa como variable (ENDPOINT_RTORRENT), dado que dependiendo de la versión de rTorrent y de los plugins instalados puede cambiar el ENDPOINT de la URL. Los ENDPOINT mas usuales son: /RPC2 o /plugins/rpc/rpc.php o /plugins/httprpc/action.php 
 
 ---
 
