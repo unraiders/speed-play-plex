@@ -1,9 +1,9 @@
 FROM python:3.12-alpine
 
 LABEL maintainer="unraiders"
-LABEL description="Control de velocidad clientes torrents qBittorrent, Transmission, Synology Download Station basado en la actividad de Plex (API Tautulli)."
+LABEL description="Control de velocidad clientes torrents qBittorrent, Transmission, Synology Download Station y rTorrent basado en la actividad de Plex (API Tautulli)."
 
-ARG VERSION=1.2.0
+ARG VERSION=1.3.0
 ENV VERSION=${VERSION}
 
 RUN adduser -D speedplay

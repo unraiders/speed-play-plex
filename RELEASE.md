@@ -1,9 +1,9 @@
 # Cambios en esta versión
 
 ## Novedades
-- ✨ Añadido soporte para cliente de torrents Synology Download Station.
+- ✨ Añadido soporte para cliente de torrents rTorrent.
 
 ## Cambios
-- 🏷️ Cambiado el nombre de la variable DEBUG_MODE a DEBUG para unificar el nombre con otros proyectos.
+- 🏷️ Añadidas nuevas variables de entorno VEL_ALTERNATIVA_DESCARGA, VEL_ALTERNATIVA_SUBIDA ya que rTorrent no tiene modo de velocidad alternativa en su configuración.
 
 
