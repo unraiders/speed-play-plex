@@ -1,7 +1,7 @@
 TAUTULLI_IP=
 TAUTULLI_PORT=
 TAUTULLI_API_KEY=
-CLIENTE_TORRENT=  # Opciones: qbittorrent, transmission, synology_ds, rtorrent
+CLIENTE_TORRENT=  # Opciones: qbittorrent, transmission, synology_ds, rtorrent, deluge
 CLIENTE_TORRENT_IP=
 CLIENTE_TORRENT_PORT=
 CLIENTE_TORRENT_USER=

@@ -5,6 +5,7 @@ import xmlrpc.client
 from qbittorrentapi import Client as qbClient
 from synology_api.downloadstation import DownloadStation as synoClient
 from transmission_rpc import Client as transClient
+from deluge_client import DelugeRPCClient
 
 from config import (
     CLIENTE_TORRENT,
@@ -42,6 +43,8 @@ class TorrentController:
             self.client = self._connect_synology_ds(max_retries, retry_delay)
         elif self.client_type == 'rtorrent':
             self.client = self._connect_rtorrent(max_retries, retry_delay)
+        elif self.client_type == 'deluge':
+            self.client = self._connect_deluge(max_retries, retry_delay)
         else:
             logger.error(f"Cliente torrent no soportado: {self.client_type}")
             return False
@@ -139,6 +142,28 @@ class TorrentController:
                     time.sleep(retry_delay)
                 else:
                     raise Exception("Max reintentos. No se puede establecer conexión con rTorrent")
+                
+    def _connect_deluge(self, max_retries=float("inf"), retry_delay=5):
+        attempts = 0
+        while attempts < max_retries:
+            try:
+                client = DelugeRPCClient(
+                    host=CLIENTE_TORRENT_IP,
+                    port=int(CLIENTE_TORRENT_PORT),
+                    username=CLIENTE_TORRENT_USER,
+                    password=CLIENTE_TORRENT_PASSWORD,
+                )
+                client.connect()
+                logger.info("Conectado a Deluge")
+                return client
+            except Exception as e:
+                attempts += 1
+                logger.error(f"Fallo al conectar a Deluge (intento {attempts}): {str(e)}")
+                if attempts < max_retries:
+                    logger.info(f"Reintentando en {retry_delay} segundos...")
+                    time.sleep(retry_delay)
+                else:
+                    raise Exception("Max reintentos. No se puede establecer conexión con Deluge")
 
     def toggle_speed_limit(self, enable=True):
         logger.debug(f"Intentando {'activar' if enable else 'desactivar'} límite de velocidad")
@@ -150,6 +175,8 @@ class TorrentController:
             return self._toggle_synology_ds_speed_limit(enable)
         elif self.client_type == 'rtorrent':
             return self._toggle_rtorrent_speed_limit(enable)
+        elif self.client_type == 'deluge':
+            return self._toggle_deluge_speed_limit(enable)
 
     def _toggle_qbittorrent_speed_limit(self, enable):
         try:
@@ -192,22 +219,73 @@ class TorrentController:
         if self.current_down is None or self.current_up is None:
             self.current_down = self.client.throttle.global_down.max_rate("")
             self.current_up = self.client.throttle.global_up.max_rate("")
-
+            logger.debug(f"Guardada velocidad actual DOWN: {self.current_down}")
+            logger.debug(f"Guardada velocidad actual UP: {self.current_up}")
         try:
             logger.info(f"Cambiando límite de velocidad en rTorrent a: {'activado' if enable else 'desactivado'}")
             if enable:
                 logger.debug(f"Vel. alternativa DOWN: {set_vel_alternativa_descarga}")
                 logger.debug(f"Vel. alternativa UP: {set_vel_alternativa_subida}")
+
+                self.current_down = self.client.throttle.global_down.max_rate("")
+                self.current_up = self.client.throttle.global_up.max_rate("")
+                logger.debug(f"Guardada velocidad actual DOWN: {self.current_down}")
+                logger.debug(f"Guardada velocidad actual UP: {self.current_up}")
+
                 self.client.throttle.global_down.max_rate.set("", set_vel_alternativa_descarga)
                 self.client.throttle.global_up.max_rate.set("", set_vel_alternativa_subida)     # KB/s  # KB/s
             else:
                 logger.debug(f"Vel. normal DOWN: {self.current_down}")
-                logger.debug(f"Vel. normal UP: {self.current_up}")             
+                logger.debug(f"Vel. normal UP: {self.current_up}")
+
                 self.client.throttle.global_down.max_rate.set("", self.current_down)
                 self.client.throttle.global_up.max_rate.set("", self.current_up)
             logger.debug("Nueva configuración de la sesión aplicada")
             return True
         except Exception as e:
             logger.error(f"Error al cambiar límite de velocidad en rTorrent: {str(e)}")
+            return False
+        
+    def _toggle_deluge_speed_limit(self, enable):
+
+        set_vel_alternativa_descarga= VEL_ALTERNATIVA_DESCARGA * 1024 * 1024
+        set_vel_alternativa_subida = VEL_ALTERNATIVA_SUBIDA * 1024 * 1024
+
+        # Si las velocidades no se han almacenado, las leemos por primera vez
+        if self.current_down is None or self.current_up is None:
+            current_settings = self.client.call('core.get_config')
+            self.current_down = current_settings.get(b'max_download_speed', None)
+            self.current_up = current_settings.get(b'max_upload_speed', None)
+            logger.debug(f"Guardada velocidad actual DOWN: {self.current_down}")
+            logger.debug(f"Guardada velocidad actual UP: {self.current_up}")
+
+        try:
+            logger.info(f"Cambiando límite de velocidad en deluge a: {'activado' if enable else 'desactivado'}")
+            if enable:
+                logger.debug(f"Vel. alternativa DOWN: {set_vel_alternativa_descarga}")
+                logger.debug(f"Vel. alternativa UP: {set_vel_alternativa_subida}")
+                
+                current_settings = self.client.call('core.get_config')
+                self.current_down = current_settings.get(b'max_download_speed', None)
+                self.current_up = current_settings.get(b'max_upload_speed', None)
+                logger.debug(f"Guardada velocidad actual DOWN: {self.current_down}")
+                logger.debug(f"Guardada velocidad actual UP: {self.current_up}")
+                
+                self.client.call('core.set_config', {'max_download_speed': set_vel_alternativa_descarga,
+                                                    'max_upload_speed': set_vel_alternativa_subida,   
+                                                    })      
+            else:
+                logger.debug(f"Vel. normal DOWN: {self.current_down}")
+                logger.debug(f"Vel. normal UP: {self.current_up}")
+
+                self.client.call('core.set_config', {
+                    b'max_download_speed': self.current_down if self.current_down is not None else 0,
+                    b'max_upload_speed': self.current_up if self.current_up is not None else 0,
+                })
+
+            logger.debug("Nueva configuración de la sesión aplicada")
+            return True
+        except Exception as e:
+            logger.error(f"Error al cambiar límite de velocidad en deluge: {str(e)}")
             return False
 

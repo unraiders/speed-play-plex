@@ -3,11 +3,12 @@ from flask import Flask, jsonify, request
 
 from config import TAUTULLI_API_KEY, TAUTULLI_IP, TAUTULLI_PORT
 from torrent_controller import TorrentController
-from utils import setup_logger
+from utils import setup_logger, generate_trace_id
 
 logger = setup_logger(__name__)
 
 def check_active_streams():
+    trace_id = generate_trace_id()
     try:
         url = f"http://{TAUTULLI_IP}:{TAUTULLI_PORT}/api/v2"
         params = {
@@ -41,6 +42,7 @@ def check_active_streams():
 
 def create_app():
     torrent_controller = TorrentController()
+    trace_id = generate_trace_id()
     if not torrent_controller.connect():
         raise Exception("No se pudo conectar al cliente torrent")
 
@@ -57,6 +59,7 @@ def create_app():
 
     @app.route('/webhook', methods=['POST'])
     def handle_webhook():
+        trace_id = generate_trace_id() 
         try:
             data = request.json
             if not data:

@@ -19,18 +19,18 @@
   <DateInstalled>1702220612</DateInstalled>
   <DonateText/>
   <DonateLink/>
-  <Description>Control de la velocidad de clientes torrent (qBittorrent/Transmission, Synology Download Station) basándose en la actividad de reproducción de Plex a través de Tautulli (API).</Description>
+  <Description>Control de la velocidad de clientes torrent (qBittorrent, Transmission, Synology Download Station, rTorrent y Deluge) basándose en la actividad de reproducción de Plex a través de Tautulli (API).</Description>
   <Config Name="WEBHOOK_PORT" Target="9898" Default="9898" Mode="tcp" Description="Puerto en el contenedor para el webhook de Tautulli" Type="Port" Display="always" Required="true" Mask="false"/>
   <Config Name="TAUTULLI_IP" Target="TAUTULLI_IP" Default="" Mode="" Description="Host/IP del servicio de Tautulli. Ejemplo: 192.168.2.20" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="TAUTULLI_PORT" Target="TAUTULLI_PORT" Default="" Mode="" Description="PUERTO del servicio de Tautulli. Ejemplo: 8182" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="TAUTULLI_API_KEY" Target="TAUTULLI_API_KEY" Default="" Mode="" Description="Nuestra API key generada en Tautulli en Settings -> Web Interface." Type="Variable" Display="always" Required="true" Mask="false"/>
-  <Config Name="CLIENTE_TORRENT" Target="CLIENTE_TORRENT" Default="" Mode="" Description="Cliente de descarga de Torrents. (qbittorrent, transmission o synology_ds)" Type="Variable" Display="always" Required="true" Mask="false"/>
+  <Config Name="CLIENTE_TORRENT" Target="CLIENTE_TORRENT" Default="" Mode="" Description="Cliente de descarga de Torrents. (qbittorrent, transmission, synology_ds, rtorrent o deluge)" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="CLIENTE_TORRENT_IP" Target="CLIENTE_TORRENT_IP" Default="" Mode="" Description="Host/IP del cliente Torrent. Ejemplo: 192.168.2.20" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="CLIENTE_TORRENT_PORT" Target="CLIENTE_TORRENT_PORT" Default="" Mode="" Description="Puerto del cliente Torrent. Ejemplo: 8090" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="CLIENTE_TORRENT_USER" Target="CLIENTE_TORRENT_USER" Default="" Mode="" Description="Usuario del cliente Torrent." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="CLIENTE_TORRENT_PASSWORD" Target="CLIENTE_TORRENT_PASSWORD" Default="" Mode="" Description="Contraseña del cliente Torrent." Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="VEL_ALTERNATIVA_DESCARGA" Target="VEL_ALTERNATIVA_DESCARGA" Default="" Mode="" Description="Velocidad de descarga solo para la opción de cliente rTorrent en MB/s." Type="Variable" Display="always" Required="false" Mask="false"/>
-  <Config Name="VEL_ALTERNATIVA_SUBIDA" Target="VEL_ALTERNATIVA_SUBIDA" Default="" Mode="" Description="Velocidad de subida solo para la opción de cliente rTorrent en MB/s." Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="VEL_ALTERNATIVA_DESCARGA" Target="VEL_ALTERNATIVA_DESCARGA" Default="" Mode="" Description="Velocidad de descarga solo para la opción de cliente rTorrent y Deluge (en MB/s.)" Type="Variable" Display="always" Required="false" Mask="false"/>
+  <Config Name="VEL_ALTERNATIVA_SUBIDA" Target="VEL_ALTERNATIVA_SUBIDA" Default="" Mode="" Description="Velocidad de subida solo para la opción de cliente rTorrent y Deluge (en MB/s.)" Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="ENDPOINT_RTORRENT" Target="ENDPOINT_RTORRENT" Default="" Mode="" Description="Solo para rTorrent, parte del ENDPOINT. visita https://github.com/unraiders/speed-play-plex/releases/tag/v1.4.0 para más info." Type="Variable" Display="always" Required="false" Mask="false"/>
   <Config Name="DEBUG" Target="DEBUG" Default="0" Mode="" Description="Habilita el modo Debug en el log. (0 = No / 1 = Si)" Type="Variable" Display="always" Required="true" Mask="false"/>
   <Config Name="TZ" Target="TZ" Default="Europe/Madrid" Mode="" Description="Timezone (Por ejemplo: Europe/Madrid)" Type="Variable" Display="always" Required="true" Mask="false"/>

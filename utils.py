@@ -1,3 +1,5 @@
+import random
+import contextvars
 import logging
 
 from colorama import Fore, Style, init
@@ -16,6 +18,11 @@ COLORS = {
     logging.CRITICAL: Fore.RED + Style.BRIGHT,
 }
 
+trace_id_var = contextvars.ContextVar("trace_id")
+class TraceIdFilter(logging.Filter):
+    def filter(self, record):
+        record.trace_id = trace_id_var.get("----")
+        return True
 class ColoredFormatter(logging.Formatter):
     def format(self, record):
         # Aplicar color según el nivel del log
@@ -29,8 +36,9 @@ def setup_logger(name: str):
 
     if not logger.hasHandlers():
         handler = logging.StreamHandler()
-        formatter = ColoredFormatter("[%(asctime)s] [%(levelname)s] %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+        formatter = ColoredFormatter("[%(asctime)s] [%(trace_id)s] [%(levelname)s] %(message)s", datefmt="%d-%m-%Y %H:%M:%S")
         handler.setFormatter(formatter)
+        handler.addFilter(TraceIdFilter())
         logger.addHandler(handler)
 
     # Control exhaustivo de librerías de terceros
@@ -50,4 +58,7 @@ def setup_logger(name: str):
             lib_logger.removeHandler(handler)
 
     return logger
+
+def generate_trace_id():
+    trace_id_var.set(random.randint(1000, 9999))
 

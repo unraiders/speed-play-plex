@@ -7,7 +7,7 @@ Imaginemos que tenemos compartiendo todas las imágenes de Linux que hay disponi
 Requerimientos para utilizar este contenedor:
 
 - Utilizar **Tautulli** como aplicación de monitoreo de la actividad de Plex Media Server.
-- Utilizar como cliente de torrents: qBittorrent, Transmission, Synology Download Station o rTorrent.
+- Utilizar como cliente de torrents: **qBittorrent, Transmission, Synology Download Station, rTorrent o Deluge.**
 
 ### Configuración variables de entorno en fichero .env (renombrar el env-example a .env)
 
@@ -16,13 +16,13 @@ Requerimientos para utilizar este contenedor:
 | TAUTULLI_IP              |     ✅    | v1.0.0  | Host/IP del servicio de Tautulli. Ejemplo: 192.168.2.20                             |
 | TAUTULLI_PORT            |     ✅    | v1.0.0  | PUERTO del servicio de Tautulli. Ejemplo: 8182                                      |
 | TAUTULLI_API_KEY         |     ✅    | v1.0.0  | Nuestra API key generada en Tautulli en Settings -> Web Interface.                  |
-| CLIENTE_TORRENT          |     ✅    | v1.2.0  | Cliente de descarga de Torrents. (qbittorrent, transmission, synology_ds o rtorrent)|
+| CLIENTE_TORRENT          |     ✅    | v1.5.0  | Cliente de descarga de Torrents. (qbittorrent, transmission, synology_ds, rtorrent o deluge) |
 | CLIENTE_TORRENT_IP       |     ✅    | v1.0.0  | Host/IP del cliente Torrent. Ejemplo: 192.168.2.20                                  |
 | CLIENTE_TORRENT_PORT     |     ✅    | v1.0.0  | Puerto del cliente Torrent. Ejemplo: 8090                                           |
 | CLIENTE_TORRENT_USER     |     ✅    | v1.0.0  | Usuario del cliente Torrent.                                                        |
 | CLIENTE_TORRENT_PASSWORD |     ✅    | v1.0.0  | Contraseña del cliente Torrent.                                                     |
-| VEL_ALTERNATIVA_DESCARGA |     ✅    | v1.3.0  | Velocidad de descarga solo para la opción de cliente rTorrent (en MB/s.)            |
-| VEL_ALTERNATIVA_SUBIDA   |     ✅    | v1.3.0  | Velocidad de subida solo para la opción de cliente rTorrent (en MB/s.)              |
+| VEL_ALTERNATIVA_DESCARGA |     ✅    | v1.5.0  | Velocidad de descarga solo para la opción de cliente rTorrent y Deluge (en MB/s.)            |
+| VEL_ALTERNATIVA_SUBIDA   |     ✅    | v1.5.0  | Velocidad de subida solo para la opción de cliente rTorrent y Deluge (en MB/s.)              |
 | ENDPOINT_RTORRENT        |     ✅    | v1.4.0  | Solo para rTorrent, parte del ENDPOINT. visita https://github.com/unraiders/speed-play-plex/releases/tag/v1.4.0 para más info. |
 | DEBUG                    |     ✅    | v1.2.0  | Habilita el modo Debug en el log. (0 = No / 1 = Si)                                 |
 | TZ                       |     ✅    | v1.1.0  | Timezone (Por ejemplo: Europe/Madrid)                                               |
@@ -59,7 +59,7 @@ services:
         - TAUTULLI_IP=
         - TAUTULLI_PORT=
         - TAUTULLI_API_KEY=
-        - CLIENTE_TORRENT=  # Opciones: qbittorrent, transmission, synology_ds o rtorrent
+        - CLIENTE_TORRENT=  # Opciones: qbittorrent, transmission, synology_ds, rtorrent o deluge
         - CLIENTE_TORRENT_IP=
         - CLIENTE_TORRENT_PORT=
         - CLIENTE_TORRENT_USER=
@@ -125,10 +125,11 @@ services:
   > [!TIP]
   > Funcionando en:
   >  - Tautulli v2.15.1
-  >  - qBittorrent v4.6.5
+  >  - qBittorrent v4.6.6
   >  - Transmission v4.0.5
   >  - Synology Download Station 4.0.3-4720
   >  - rTorrent 0.9.8
+  >  - Deluge 2.1.1
   >  - Es posible que funcione en versiones anteriores y posteriores de estos clientes.
 
 ---
@@ -138,7 +139,8 @@ services:
 - **qBittorrent**: Click en rueda dentada del menú superior, pestaña "Speed" -> "Alternative Rate Limits".
 - **Transmission**: Click en rueda dentada del menú superior, pestaña "Speed" -> "Alternative Rate Limits".
 - **Synology Download Station**: En el cliente Synology Download Station tenemos que hacer un paso adicional que es definir un Plan de programa, hacemos click a la rueda dentada en la parte inferior izquierda de nuestro cliente de torrent, en la sección BT/HTTP/FTP/NZB nos vamos a General y en Programa de descargas -> Programa avanzado y click en el botón "Plan de programa", aquí seleccionamos "Velocidad alternativa de BT" haciendo click en el cuadrado naranja, ahora arrastramos el ratón por toda la franja de días y horarios del cuadro inferior y se nos tiene que marcar todo en color naranja, por último indicamos cual será nuestra velocidad máxima de carga y descarga cuando tengamos una reproducción en Plex, ya está click en el botón "OK" y muy importante en "Programa de descargas" seleccionar "Inmediatamente" y click en botón "OK".
-- **rTorrent**: En el caso de rTorrent al no disponer de opción de velocidad alternativa dentro de su configuración utilizaremos las variables de entorno VEL_ALTERNATIVA_DESCARGA y VEL_ALTERNATIVA_SUBIDA para indicarle cual será la velocidad en el caso de que exista una reproducción en Plex.  
+- **rTorrent**: En el caso de rTorrent al no disponer de opción de velocidad alternativa dentro de su configuración utilizaremos las variables de entorno VEL_ALTERNATIVA_DESCARGA y VEL_ALTERNATIVA_SUBIDA para indicarle cual será la velocidad en el caso de que exista una reproducción en Plex.
+- **Deluge**: En el caso de Deluge al no disponer de opción de velocidad alternativa dentro de su configuración utilizaremos las variables de entorno VEL_ALTERNATIVA_DESCARGA y VEL_ALTERNATIVA_SUBIDA para indicarle cual será la velocidad en el caso de que exista una reproducción en Plex.   
 
 - Podemos calcular la velocidad deseada en está página: https://www.calculator.net/bandwidth-calculator.html
 
@@ -152,6 +154,12 @@ services:
 -  Otra imagen [crazy-max/docker-rtorrent-rutorrent](https://github.com/crazy-max/docker-rtorrent-rutorrent) el puerto que expone XMLRPC es el 8000. (con esa imagen la autenticación está deshabilitada por defecto, podemos dejar las variables de usuario y contraseña vacías, en el caso de querer activar la autenticación en el repositorio está en procedimiento).
 - Imagen de hotio que integra flood con rTorrent [ghcr.io/hotio/rflood](https://hotio.dev/containers/rflood) el puerto que expone XMLRPC es el 5000. (si ya tenemos corriendo esta imagen con anterioridad, leer la página de hotio que indica como sacar el usuario y contraseña para la conexión).
 - A partir de la versión v1.4.0 del contenedor se separa de la URL el ENDPOINT y se pasa como variable (ENDPOINT_RTORRENT), dado que dependiendo de la versión de rTorrent y de los plugins instalados puede cambiar el ENDPOINT de la URL. Los ENDPOINT mas usuales son: /RPC2 o /plugins/rpc/rpc.php o /plugins/httprpc/action.php 
+
+---
+
+### Peculiaridades Deluge.
+
+- En el caso de Deluge nos tenemos que asegurar que el contenedor de Deluge expone el puerto 58846 (puerto utilizado para la comunicación con el cliente).
 
 ---
 

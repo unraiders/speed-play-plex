@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 # Cargar variables de entorno
 load_dotenv()
 
-# Opciones: qbittorrent, transmission o synology_ds
+# Opciones: qbittorrent, transmission, synology_ds, rtorrent o deluge
 CLIENTE_TORRENT = os.getenv('CLIENTE_TORRENT', '').lower()
 
 TAUTULLI_IP = os.getenv('TAUTULLI_IP')
