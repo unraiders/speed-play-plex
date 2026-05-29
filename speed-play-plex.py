@@ -5,6 +5,8 @@ from config import TAUTULLI_API_KEY, TAUTULLI_IP, TAUTULLI_PORT
 from torrent_controller import TorrentController
 from utils import setup_logger, generate_trace_id
 
+VERSION="1.6.0"
+
 logger = setup_logger(__name__)
 
 def check_active_streams():

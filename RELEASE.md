@@ -1,10 +1,3 @@
 # Cambios en esta versión
 
-## Novedades
-- ✨ Añadido soporte para cliente de torrents Deluge.
-
-# Cambios en esta versión
-
-## Cambios
-- 🎨 Añadido internamente trace_id en la salida del log para mejor control sobre cada proceso. 
-
+- Actualizada librería `qbittorrent-api` de `2025.7.0` a `2026.5.1` para compatibilidad con qBittorrent v5.x.
