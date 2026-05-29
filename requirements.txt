@@ -3,7 +3,7 @@ werkzeug == 2.0.3
 python-dotenv == 1.0.0
 requests == 2.31.0
 colorama == 0.4.6
-qbittorrent-api == 2025.2.0
+qbittorrent-api == 2026.5.1
 transmission-rpc == 7.0.11
 synology-api == 0.7.3
 deluge-client == 1.10.2

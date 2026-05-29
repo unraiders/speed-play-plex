@@ -1,0 +1,41 @@
+name: Docker Develop Build and Push to DockerHub
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  build-and-push-develop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from Dockerfile
+        id: get_version
+        run: |
+          VERSION=$(grep "ARG VERSION=" Dockerfile | cut -d= -f2 | cut -d' ' -f1)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push develop image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7
+          push: true
+          build-args: |
+            VERSION=${{ steps.get_version.outputs.version }}-develop
+          tags: |
+            unraiders/speed-play-plex:develop
+            unraiders/speed-play-plex:${{ steps.get_version.outputs.version }}-develop
