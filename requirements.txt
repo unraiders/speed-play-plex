@@ -8,4 +8,5 @@ transmission-rpc == 7.0.11
 synology-api == 0.7.3
 deluge-client == 1.10.2
 gunicorn == 20.1.0
+setuptools == 76.0.0
 tzdata == 2025.1
